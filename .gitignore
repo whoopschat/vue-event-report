@@ -1,0 +1,9 @@
+# npm modules
+node_modules/
+test/
+dist/
+
+# vim temp file
+*.swp
+# macOS generated
+.DS_Store
