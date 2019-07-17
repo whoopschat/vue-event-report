@@ -13,7 +13,7 @@ function _handleChanged() {
         _onchangeds.forEach(changed => {
             changed && changed();
         });
-    }, 16);
+    }, 100);
 }
 
 function _init() {
@@ -25,6 +25,7 @@ function _init() {
     onAttachEvent(window, 'scroll', _handleChanged);
     onAttachEvent(window, 'resize', _handleChanged);
     onAttachEvent(document, 'DOMContentLoaded', _handleChanged);
+    setInterval(_handleChanged, 500);
 }
 
 export function onChanged(onchanged) {
