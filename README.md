@@ -4,6 +4,7 @@
 
 ## Getting started
 * make sure node and npm installed;
+
 ### Install
 ```
 > npm install vue-event-report
@@ -18,20 +19,20 @@ import Report from 'vue-event-report';
 Vue.use(Report);
 Report.setReportHandler(({ event, data }) => {
     if (event == 'click') {
-        gcenter.report.reportEvent(40002, {
-            extra: Object.assign(data, { pos: name })
-        });
+        // click event
     } else if (event == 'exposure') {
-        gcenter.report.reportEvent(30001, {
-            extra: Object.assign(data, { pos: name })
-        });
+        // exposure event
     }
 })
 ```
 ##### app.vue
 ```javascript
 <template>
-  <div v-report="{ key: value }">
+  <div>
+    <div v-report:click="{ key: value }">
+    </div>
+    <div v-report:exposure="{ key: value }">
+    </div>
   </div>
 </template>
 ```
