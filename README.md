@@ -4,12 +4,12 @@
 
 ## Getting started
 * make sure node and npm installed;
-#### install
+### Install
 ```
 > npm install vue-event-report
 ```
 
-#### usage
+### Usage
 ##### main.js
 ```javascript
 import Vue from 'vue';
