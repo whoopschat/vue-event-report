@@ -24,8 +24,6 @@ function _getScroll(element) {
     let scrollLeft = 0;
     try {
         if (element && _getStyle(element, 'position') != 'fixed') {
-            scrollTop += -(element.scrollTop || 0);
-            scrollLeft += - (element.scrollLeft || 0);
             let next = () => {
                 element = element.parentElement;
                 return element && _getStyle(element, 'position') != 'fixed';
