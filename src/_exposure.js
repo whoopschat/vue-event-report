@@ -85,7 +85,6 @@ function _checkVisible(div) {
     try {
         let { w, h } = __getViewportSize();
         let { top, left, width, height } = _getPosition(div);
-        console.log({ top, left, width, height });
         return width > 0 && height > 0 && top + height >= 0 && top < h && left + width >= 0 && left < w;
     } catch (error) {
     }
