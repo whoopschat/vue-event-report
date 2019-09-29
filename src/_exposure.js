@@ -1,15 +1,21 @@
 import { onChanged } from "./utils/changed";
+import { onAttachEvent } from "./utils/event";
 
 let _els = [];
 let _reports = [];
 let _handler = null;
 let _inited = false;
+let _viewport_size = null;
 
-function __getViewportSize() {
-    return {
+function __getViewportSize(forceUpdate) {
+    if (!forceUpdate && _viewport_size) {
+        return _viewport_size;
+    }
+    _viewport_size = {
         w: window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth,
         h: window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
     }
+    return _viewport_size;
 }
 
 function _getStyle(element, attr) {
@@ -146,6 +152,9 @@ export function initExposure(handler) {
     }
     _inited = true;
     _handler = handler;
+    onAttachEvent(window, 'resize', () => {
+        __getViewportSize(true);
+    });
     onChanged(() => {
         _els.forEach(el => {
             _checkExposure(el);
