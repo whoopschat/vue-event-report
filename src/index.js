@@ -19,7 +19,7 @@ function install(vue, alias = 'VReport') {
         return;
     }
     _initReport(vue, (...params) => {
-        _handler && handler(...params);
+        _handler && _handler(...params);
     });
     let instance = {
         setReportHandler: (handler) => {
