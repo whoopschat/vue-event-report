@@ -1,24 +1,38 @@
-import { _initReport } from './_report';
+import { _initReport, _reportEvent } from './_report';
 
-let _inited = false;
-let _vue = null;
+let _handler = null;
+let _installed = false;
 
-function install(vue) {
-    if (_inited || !vue) {
+function setGlobal(key, value, vue) {
+    if (key && value && typeof key == 'string') {
+        if (typeof window !== 'undefined') {
+            window[key] = value;
+        }
+        if (vue && vue.prototype) {
+            vue.prototype[key] = value;
+        }
+    }
+}
+
+function install(vue, alias = 'VReport') {
+    if (_installed || !vue) {
         return;
     }
-    _inited = true;
-    _vue = vue;
+    _initReport(vue, (...params) => {
+        _handler && handler(...params);
+    });
+    let instance = {
+        setReportHandler: (handler) => {
+            if (handler && typeof handler === 'function') {
+                _handler = handler;
+            }
+        },
+        reportEvent: (event, data) => {
+            _reportEvent(event, data);
+        }
+    };
+    setGlobal(alias, instance, vue);
+    _installed = true;
 }
 
-function setReportHandler(handler) {
-    _initReport(_vue, handler);
-}
-
-const _instance = { install, setReportHandler }
-
-if (typeof window !== 'undefined') {
-    window['ReportInstaller'] = _instance;
-}
-
-module.exports = _instance;
+module.exports = { install };

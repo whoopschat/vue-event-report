@@ -6,6 +6,10 @@ import { initExposure, addExposure, delExposure, resetExposure } from "./_exposu
 let _inited = false;
 let _handleReport = null;
 
+export function _reportEvent(event, data) {
+    _handleReport && _handleReport({ event, data })
+}
+
 export function _initReport(vue, handler) {
     if (_inited || !vue || !handler) {
         return;

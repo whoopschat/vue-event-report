@@ -99,7 +99,7 @@ function _checkVisible(div) {
 
 function _canExposure(el) {
     try {
-        let key = el.getAttribute("report-key");
+        let key = el.getAttribute("report-key") || el.getAttribute("key");
         if (!key) {
             return true;
         }
