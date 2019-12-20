@@ -13,11 +13,12 @@
 ### Usage
 ##### main.js
 ```javascript
-import Vue from 'vue';
-import Report from 'vue-event-report';
-
-Vue.use(Report);
-Report.setReportHandler(({ event, data }) => {
+import vue from 'vue';
+import vue_event_report from 'vue-event-report';
+// install
+vue.use(vue_event_report);
+// set report handler
+VReport.setReportHandler(({ event, data }) => {
     if (event == 'click') {
         // click event
     } else if (event == 'exposure') {
