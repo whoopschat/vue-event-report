@@ -1,21 +1,38 @@
-export function del(key, el) {
+let _report_bindings = {};
+let _report_incr_id = 1;
+
+function getBindKey(key, el) {
     try {
-        el.setAttribute(`binding-${key}`, '');
+        let id = el.getAttribute("v-report-id");
+        if (!id) {
+            id = _report_incr_id++;
+            el.setAttribute("v-report-id", id);
+        }
+        return key + "-" + id;
     } catch (error) {
     }
+}
+
+export function del(key, el) {
+    let realKey = getBindKey(key, el);
+    if (!realKey) {
+        return;
+    }
+    delete _report_bindings[realKey];
 }
 
 export function get(key, el) {
-    try {
-        let data = el.getAttribute(`binding-${key}`);
-        return JSON.parse(data);
-    } catch (error) {
+    let realKey = getBindKey(key, el);
+    if (!realKey) {
+        return;
     }
+    return _report_bindings[realKey];
 }
 
 export function set(key, el, binding) {
-    try {
-        el.setAttribute(`binding-${key}`, JSON.stringify(binding));
-    } catch (error) {
+    let realKey = getBindKey(key, el);
+    if (!realKey) {
+        return;
     }
+    _report_bindings[realKey] = binding;
 }

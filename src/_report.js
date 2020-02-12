@@ -39,7 +39,7 @@ export function _initReport(vue, handler) {
             }
         },
         update: function (el, binding) {
-            if (binding.rawName == 'v-report' || binding.rawName == 'v-report:exposure') {
+            if (binding.rawName == 'v-report' || binding.rawName == 'v-report:click') {
                 set('click', el, binding);
             }
             if (binding.rawName == 'v-report' || binding.rawName == 'v-report:exposure') {

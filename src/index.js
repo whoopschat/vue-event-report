@@ -14,6 +14,8 @@ function setGlobal(key, value, vue) {
     }
 }
 
+let _instance = { install };
+
 function install(vue, alias = 'VReport') {
     if (_installed || !vue) {
         return;
@@ -21,18 +23,16 @@ function install(vue, alias = 'VReport') {
     _initReport(vue, (...params) => {
         _handler && _handler(...params);
     });
-    let instance = {
-        setReportHandler: (handler) => {
-            if (handler && typeof handler === 'function') {
-                _handler = handler;
-            }
-        },
-        reportEvent: (event, data) => {
-            _reportEvent(event, data);
+    _instance.setReportHandler = (handler) => {
+        if (handler && typeof handler === 'function') {
+            _handler = handler;
         }
-    };
-    setGlobal(alias, instance, vue);
+    }
+    _instance.reportEvent = (event, data) => {
+        _reportEvent(event, data);
+    }
+    setGlobal(alias, _instance, vue);
     _installed = true;
 }
 
-module.exports = { install };
+module.exports = _instance;

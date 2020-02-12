@@ -15,10 +15,11 @@
 ```javascript
 import vue from 'vue';
 import vue_event_report from 'vue-event-report';
+
 // install
 vue.use(vue_event_report);
 // set report handler
-VReport.setReportHandler(({ event, data }) => {
+vue_event_report.setReportHandler(({ event, data }) => {
     if (event == 'click') {
         // click event
     } else if (event == 'exposure') {
@@ -30,6 +31,8 @@ VReport.setReportHandler(({ event, data }) => {
 ```javascript
 <template>
   <div>
+    <div v-report="{ key: value }">
+    </div>
     <div v-report:click="{ key: value }">
     </div>
     <div v-report:exposure="{ key: value }">
