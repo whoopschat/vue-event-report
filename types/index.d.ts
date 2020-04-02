@@ -1,23 +1,29 @@
-/// <reference no-default-lib="true"/>
+declare module "vue-event-report" {
 
-declare interface VReport {
+    function install(vue: any): void;
 
-    /**
-     * 设置上报事件处理器
-     * @param handler 上报事件处理器
-     */
-    setReportHandler(handler: ({ event: string, data: any }) => {}): void;
+    interface VReport {
 
-    /**
-     * 上报事件
-     * @param event 事件
-     * @param data 数据
-     */
-    reportEvent(event: string, data: any): void;
+        /**
+         * 设置上报事件处理器
+         * @param handler 上报事件处理器
+         */
+        setReportHandler(handler: ({ event: string, data: any }) => {}): void;
+
+        /**
+         * 上报事件
+         * @param event 事件
+         * @param data 数据
+         */
+        reportEvent(event: string, data: any): void;
+
+    }
 
 }
 
-/**
- * VReport挂在在window和vue里面
- */
-declare var VReport: VReport;
+
+declare var VReport: import("vue-event-report").VReport;
+
+declare interface Window {
+    VReport: import("vue-event-report").VReport;
+}

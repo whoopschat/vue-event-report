@@ -3,6 +3,22 @@ import { _initReport, _reportEvent } from './_report';
 let _handler = null;
 let _installed = false;
 
+function create(vue) {
+    _initReport(vue, (...params) => {
+        _handler && _handler(...params);
+    });
+    return {
+        setReportHandler: (handler) => {
+            if (handler && typeof handler === 'function') {
+                _handler = handler;
+            }
+        },
+        reportEvent: (event, data) => {
+            _reportEvent(event, data);
+        }
+    }
+}
+
 function setGlobal(key, value, vue) {
     if (key && value && typeof key == 'string') {
         if (typeof window !== 'undefined') {
@@ -14,25 +30,15 @@ function setGlobal(key, value, vue) {
     }
 }
 
-let _instance = { install };
-
-function install(vue, alias = 'VReport') {
+function install(vue) {
     if (_installed || !vue) {
         return;
     }
-    _initReport(vue, (...params) => {
-        _handler && _handler(...params);
-    });
-    _instance.setReportHandler = (handler) => {
-        if (handler && typeof handler === 'function') {
-            _handler = handler;
-        }
-    }
-    _instance.reportEvent = (event, data) => {
-        _reportEvent(event, data);
-    }
-    setGlobal(alias, _instance, vue);
+    let vreport = create(vue);
+    setGlobal("VReport", vreport, vue);
     _installed = true;
 }
 
-module.exports = _instance;
+module.exports = {
+    install
+}
