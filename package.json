@@ -1,8 +1,10 @@
 {
   "name": "vue-event-report",
-  "version": "1.7.0",
+  "version": "1.7.1",
   "description": "vue event report component",
   "main": "lib/index.js",
+  "types": "types/index.d.ts",
+  "typings": "types/index.d.ts",
   "scripts": {
     "start": "webpack --watch",
     "build": "webpack --config webpack.prod.js",
