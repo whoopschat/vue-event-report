@@ -1,6 +1,6 @@
 {
   "name": "vue-event-report",
-  "version": "1.7.1",
+  "version": "2.0.0",
   "description": "vue event report component",
   "main": "lib/index.js",
   "types": "types/index.d.ts",
